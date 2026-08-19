@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Portal</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            background-color: white;
+            width: 600px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="reset"] {
+            background-color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Student Registration Portal</h1>
+
+    <form action="/register" method="post">
+
+        <label for="full_name">Full Name:</label>
+        <input type="text" id="full_name" name="full_name"
+               placeholder="Enter name.." required>
+
+        <label for="email">University Email:</label>
+        <input type="email" id="email" name="email"
+               placeholder="Enter email..." required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age"
+               placeholder="Enter age..." required>
+
+        <label for="course">Course:</label>
+        <select name="course" id="course" required>
+            <option value="">Select course</option>
+            <option value="btech">B.Tech</option>
+            <option value="mtech">M.Tech</option>
+            <option value="mba">MBA</option>
+            <option value="msc">M.Sc</option>
+        </select>
+
+        <label for="branch">Branch:</label>
+        <select name="branch" id="branch" required>
+            <option value="">Select branch</option>
+            <option value="cse">Computer Science</option>
+            <option value="ece">Electronics</option>
+            <option value="mech">Mechanical</option>
+            <option value="civil">Civil</option>
+        </select>
+
+        <label for="year">Year of Study:</label>
+        <select name="year" id="year" required>
+            <option value="">Select year</option>
+            <option value="1">1st Year</option>
+            <option value="2">2nd Year</option>
+            <option value="3">3rd Year</option>
+            <option value="4">4th Year</option>
+        </select>
+
+        <label for="internship">Internship Preference:</label>
+        <select name="internship_city" id="internship" required>
+            <option value="">Select city</option>
+            <option value="hyderabad">Hyderabad</option>
+            <option value="bangalore">Bangalore</option>
+            <option value="chennai">Chennai</option>
+            <option value="mumbai">Mumbai</option>
+        </select>
+
+        <label for="resume">Upload Resume:</label>
+        <input type="file" id="resume" name="resume"
+               accept=".pdf,.doc,.docx" required>
+
+        <label for="cover_letter">Cover Letter:</label>
+        <textarea id="cover_letter" name="cover_letter"
+                  placeholder="Enter cover letter..." required></textarea>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone"
+               placeholder="Enter phone number..." required>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label>Gender:</label><br>
+
+        <input type="radio" value="male" name="gender" id="male">
+        <label for="male">Male</label>
+
+        <input type="radio" value="female" name="gender" id="female">
+        <label for="female">Female</label>
+
+        <input type="radio" value="other" name="gender" id="other">
+        <label for="other">Other</label>
+
+        <br><br>
+
+        <label>Skills:</label><br>
+
+        <input type="checkbox" value="python" name="skills" id="python">
+        <label for="python">Python</label>
+
+        <input type="checkbox" value="java" name="skills" id="java">
+        <label for="java">Java</label>
+
+        <input type="checkbox" value="c++" name="skills" id="c++">
+        <label for="c++">C++</label>
+
+        <br><br>
+
+        <label for="comments">Any Comments:</label>
+        <textarea id="comments" name="comments"
+                  placeholder="Enter any comments..."></textarea>
+
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+
+    </form>
+
+</body>
+</html>

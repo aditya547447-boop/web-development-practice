@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>A Tiny Dino's Big Apology 🦕</title>
+<style>
+  :root{
+    --pink: #ffd6e8;
+    --pink-deep: #ff8fb3;
+    --mint: #c8f4e0;
+    --mint-deep: #6fdbb0;
+    --cream: #fffaf3;
+    --ink: #4a3b45;
+    --accent: #ff6f91;
+  }
+
+  *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body{
+    margin:0; padding:0; height:100%;
+    font-family: 'Baloo 2', 'Comic Sans MS', 'Segoe UI', sans-serif;
+    background: linear-gradient(160deg, var(--cream) 0%, var(--pink) 45%, var(--mint) 100%);
+    background-attachment: fixed;
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  @font-face{
+    font-family: 'Baloo 2';
+    src: local('Baloo 2');
+  }
+
+  .stage{
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+  }
+
+  .cloud{
+    position: absolute;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    filter: blur(0.5px);
+    animation: drift 40s linear infinite;
+  }
+  @keyframes drift{
+    from{ transform: translateX(-10vw); }
+    to{ transform: translateX(110vw); }
+  }
+
+  .card{
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(10px);
+    border-radius: 32px;
+    padding: 40px 32px 32px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(255, 143, 179, 0.35), inset 0 0 0 2px rgba(255,255,255,0.5);
+    border: 3px solid var(--pink-deep);
+  }
+
+  .eyebrow{
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--mint-deep);
+    color: white;
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  h1{
+    font-size: clamp(22px, 6vw, 30px);
+    line-height: 1.25;
+    margin: 0 0 10px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .subtext{
+    font-size: clamp(15px, 4vw, 17px);
+    line-height: 1.5;
+    color: #6b5763;
+    margin: 0 0 24px;
+    font-weight: 500;
+  }
+
+  /* --- DINO --- */
+  .dino-wrap{
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 10px;
+    position: relative;
+  }
+
+  .dino-wrap svg{
+    width: 100%;
+    height: 100%;
+    animation: sad-sway 3.2s ease-in-out infinite;
+  }
+
+  @keyframes sad-sway{
+    0%, 100%{ transform: rotate(-2deg) translateY(0); }
+    50%{ transform: rotate(2deg) translateY(4px); }
+  }
+
+  .card.happy .dino-wrap svg{
+    animation: happy-bounce 0.7s ease-in-out infinite;
+  }
+
+  @keyframes happy-bounce{
+    0%, 100%{ transform: translateY(0) rotate(-4deg); }
+    50%{ transform: translateY(-18px) rotate(4deg); }
+  }
+
+  .tear{
+    animation: drip 2s ease-in infinite;
+    opacity: 0.9;
+  }
+  @keyframes drip{
+    0%{ transform: translateY(0); opacity: 0.9; }
+    80%{ transform: translateY(18px); opacity: 0.3; }
+    100%{ transform: translateY(20px); opacity: 0; }
+  }
+
+  .heart-eye{ display:none; }
+  .card.happy .heart-eye{ display: block; }
+  .card.happy .sad-eye{ display: none; }
+  .card.happy .tear{ display: none; }
+  .card.happy .frown{ display: none; }
+  .smile{ display: none; }
+  .card.happy .smile{ display: block; }
+
+  /* --- BUTTONS --- */
+  .btn-row{
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 22px;
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 60px;
+  }
+
+  button{
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 16px;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 26px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .btn-yes{
+    background: linear-gradient(135deg, var(--accent), var(--pink-deep));
+    color: white;
+    box-shadow: 0 8px 20px rgba(255, 111, 145, 0.5);
+  }
+  .btn-yes:hover{ transform: scale(1.06); }
+  .btn-yes:active{ transform: scale(0.96); }
+
+  .btn-no{
+    background: white;
+    color: var(--ink);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    position: relative;
+  }
+
+  .btn-no.runaway{
+    position: fixed;
+    z-index: 50;
+  }
+
+  /* --- PAGE 2 --- */
+  .page2{
+    display: none;
+  }
+  .card.happy .page1{ display: none; }
+  .card.happy .page2{ display: block; }
+
+  .celebrate-text{
+    font-size: clamp(20px, 5.5vw, 26px);
+    font-weight: 800;
+    line-height: 1.4;
+    margin: 14px 0 6px;
+    color: var(--accent);
+  }
+
+  .celebrate-sub{
+    font-size: 15px;
+    color: #6b5763;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .replay{
+    margin-top: 18px;
+    background: transparent;
+    color: #a58a97;
+    text-decoration: underline;
+    font-weight: 600;
+    font-size: 13px;
+    box-shadow: none;
+    padding: 6px;
+  }
+
+  /* --- CONFETTI / HEARTS --- */
+  .fx-layer{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 40;
+  }
+
+  .fx-piece{
+    position: absolute;
+    top: -40px;
+    will-change: transform;
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall{
+    to{
+      transform: translateY(110vh) rotate(var(--rot));
+    }
+  }
+
+  @media (max-width: 420px){
+    .card{ padding: 30px 20px 26px; border-radius: 26px; }
+    .dino-wrap{ width: 170px; height: 170px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <!-- floating clouds -->
+  <div class="cloud" style="width:120px;height:50px;top:8%;left:-10%;animation-duration:55s;"></div>
+  <div class="cloud" style="width:80px;height:36px;top:20%;left:-20%;animation-duration:38s;animation-delay:-10s;"></div>
+  <div class="cloud" style="width:100px;height:44px;top:70%;left:-15%;animation-duration:48s;animation-delay:-20s;"></div>
+
+  <div class="card" id="card">
+
+    <!-- PAGE 1: APOLOGY -->
+    <div class="page1">
+      <span class="eyebrow">Dino Confession</span>
+      <h1>Oops... A certain tiny dinosaur made a BIG mistake last night 🦕💔</h1>
+      <p class="subtext">I fell asleep without saying <strong>I Love You</strong>... Please forgive me?</p>
+
+      <div class="dino-wrap">
+        <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- tail -->
+          <path d="M40 150 Q10 145 15 170 Q20 185 42 172Z" fill="#8fe0b8" stroke="#4fb98a" stroke-width="3"/>
+          <!-- body -->
+          <ellipse cx="110" cy="140" rx="62" ry="50" fill="#a6ecc7" stroke="#4fb98a" stroke-width="3"/>
+          <!-- belly -->
+          <ellipse cx="112" cy="152" rx="38" ry="30" fill="#e9fff2"/>
+          <!-- spikes -->
+          <path d="M78 96 L86 78 L94 96Z" fill="#6fdbb0" stroke="#4fb98a" stroke-width="2"/>
+          <path d="M100 90 L108 70 L116 90Z" fill="#6fdbb0" stroke="#4fb98a" stroke-width="2"/>
+          <path d="M122 92 L130 74 L138 92Z" fill="#6fdbb0" stroke="#4fb98a" stroke-width="2"/>
+          <!-- legs -->
+          <ellipse cx="78" cy="188" rx="14" ry="10" fill="#8fe0b8" stroke="#4fb98a" stroke-width="3"/>
+          <ellipse cx="140" cy="188" rx="14" ry="10" fill="#8fe0b8" stroke="#4fb98a" stroke-width="3"/>
+          <!-- arms -->
+          <ellipse cx="60" cy="140" rx="10" ry="16" fill="#a6ecc7" stroke="#4fb98a" stroke-width="3" transform="rotate(-20 60 140)"/>
+          <ellipse cx="160" cy="140" rx="10" ry="16" fill="#a6ecc7" stroke="#4fb98a" stroke-width="3" transform="rotate(20 160 140)"/>
+          <!-- head -->
+          <ellipse cx="112" cy="86" rx="46" ry="40" fill="#b4f0d1" stroke="#4fb98a" stroke-width="3"/>
+          <!-- snout -->
+          <ellipse cx="145" cy="98" rx="18" ry="14" fill="#b4f0d1" stroke="#4fb98a" stroke-width="3"/>
+          <!-- nostril -->
+          <circle cx="156" cy="96" r="2" fill="#4fb98a"/>
+
+          <!-- SAD EYES -->
+          <g class="sad-eye">
+            <circle cx="98" cy="80" r="9" fill="white" stroke="#4fb98a" stroke-width="2"/>
+            <circle cx="99" cy="83" r="4.5" fill="#4a3b45"/>
+            <circle cx="128" cy="80" r="9" fill="white" stroke="#4fb98a" stroke-width="2"/>
+            <circle cx="129" cy="83" r="4.5" fill="#4a3b45"/>
+            <!-- eyebrows (worried) -->
+            <path d="M88 66 Q98 62 108 68" stroke="#4a3b45" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M138 66 Q128 62 118 68" stroke="#4a3b45" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <!-- tear -->
+            <path class="tear" d="M98 92 Q94 100 98 106 Q102 100 98 92Z" fill="#8fd6ff"/>
+          </g>
+
+          <!-- HAPPY HEART EYES -->
+          <g class="heart-eye">
+            <path d="M98 76 C96 72 89 72 89 78 C89 83 98 89 98 89 C98 89 107 83 107 78 C107 72 100 72 98 76Z" fill="#ff6f91"/>
+            <path d="M128 76 C126 72 119 72 119 78 C119 83 128 89 128 89 C128 89 137 83 137 78 C137 72 130 72 128 76Z" fill="#ff6f91"/>
+          </g>
+
+          <!-- FROWN -->
+          <path class="frown" d="M100 112 Q112 104 124 112" stroke="#4a3b45" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+          <!-- SMILE -->
+          <path class="smile" d="M98 110 Q112 124 128 110" stroke="#4a3b45" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+          <!-- cheeks -->
+          <ellipse cx="88" cy="98" rx="7" ry="4" fill="#ffb3c6" opacity="0.7"/>
+          <ellipse cx="140" cy="100" rx="7" ry="4" fill="#ffb3c6" opacity="0.7"/>
+        </svg>
+      </div>
+
+      <div class="btn-row" id="btnRow">
+        <button class="btn-yes" id="yesBtn">Forgive Him 💖</button>
+        <button class="btn-no" id="noBtn">No, Still Mad 😤</button>
+      </div>
+    </div>
+
+    <!-- PAGE 2: CELEBRATION -->
+    <div class="page2">
+      <span class="eyebrow">Dino Confession</span>
+      <div class="dino-wrap">
+        <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40 150 Q10 145 15 170 Q20 185 42 172Z" fill="#8fe0b8" stroke="#4fb98a" stroke-width="3"/>
+          <ellipse cx="110" cy="140" rx="62" ry="50" fill="#a6ecc7" stroke="#4fb98a" stroke-width="3"/>
+          <ellipse cx="112" cy="152" rx="38" ry="30" fill="#e9fff2"/>
+          <path d="M78 96 L86 78 L94 96Z" fill="#6fdbb0" stroke="#4fb98a" stroke-width="2"/>
+          <path d="M100 90 L108 70 L116 90Z" fill="#6fdbb0" stroke="#4fb98a" stroke-width="2"/>
+          <path d="M122 92 L130 74 L138 92Z" fill="#6fdbb0" stroke="#4fb98a" stroke-width="2"/>
+          <ellipse cx="78" cy="188" rx="14" ry="10" fill="#8fe0b8" stroke="#4fb98a" stroke-width="3"/>
+          <ellipse cx="140" cy="188" rx="14" ry="10" fill="#8fe0b8" stroke="#4fb98a" stroke-width="3"/>
+          <ellipse cx="60" cy="140" rx="10" ry="16" fill="#a6ecc7" stroke="#4fb98a" stroke-width="3" transform="rotate(-30 60 140)"/>
+          <ellipse cx="160" cy="140" rx="10" ry="16" fill="#a6ecc7" stroke="#4fb98a" stroke-width="3" transform="rotate(30 160 140)"/>
+          <ellipse cx="112" cy="86" rx="46" ry="40" fill="#b4f0d1" stroke="#4fb98a" stroke-width="3"/>
+          <ellipse cx="145" cy="98" rx="18" ry="14" fill="#b4f0d1" stroke="#4fb98a" stroke-width="3"/>
+          <circle cx="156" cy="96" r="2" fill="#4fb98a"/>
+          <path d="M98 76 C96 72 89 72 89 78 C89 83 98 89 98 89 C98 89 107 83 107 78 C107 72 100 72 98 76Z" fill="#ff6f91"/>
+          <path d="M128 76 C126 72 119 72 119 78 C119 83 128 89 128 89 C128 89 137 83 137 78 C137 72 130 72 128 76Z" fill="#ff6f91"/>
+          <path d="M98 110 Q112 124 128 110" stroke="#4a3b45" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <ellipse cx="88" cy="98" rx="7" ry="4" fill="#ffb3c6" opacity="0.7"/>
+          <ellipse cx="140" cy="100" rx="7" ry="4" fill="#ffb3c6" opacity="0.7"/>
+        </svg>
+      </div>
+      <p class="celebrate-sub">Phew, crisis averted 😌</p>
+      <p class="celebrate-text">Yay! I love you so much! Promise to never sleep without saying I Love You again! 🦖❤️</p>
+      <button class="replay" id="replayBtn">play it again ↺</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="fx-layer" id="fxLayer"></div>
+
+<script>
+  const card = document.getElementById('card');
+  const noBtn = document.getElementById('noBtn');
+  const yesBtn = document.getElementById('yesBtn');
+  const replayBtn = document.getElementById('replayBtn');
+  const fxLayer = document.getElementById('fxLayer');
+  const stage = document.getElementById('stage');
+
+  let noBtnMoved = false;
+  const noPhrases = ["No, Still Mad 😤", "Nope! 🙅‍♀️", "Catch me first 🏃‍♀️", "Try again 😜", "Nu-uh 🚫", "Still mad!! 😾"];
+
+  function moveNoButton(){
+    const w = noBtn.offsetWidth;
+    const h = noBtn.offsetHeight;
+    const maxX = window.innerWidth - w - 16;
+    const maxY = window.innerHeight - h - 16;
+    const x = Math.max(16, Math.random() * maxX);
+    const y = Math.max(16, Math.random() * maxY);
+
+    if(!noBtnMoved){
+      noBtn.classList.add('runaway');
+      noBtnMoved = true;
+    }
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+    noBtn.textContent = noPhrases[Math.floor(Math.random() * noPhrases.length)];
+  }
+
+  noBtn.addEventListener('mouseenter', moveNoButton);
+  noBtn.addEventListener('touchstart', function(e){
+    e.preventDefault();
+    moveNoButton();
+  }, { passive: false });
+  noBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    moveNoButton();
+  });
+
+  function celebrate(){
+    card.classList.add('happy');
+    burstFX();
+  }
+
+  yesBtn.addEventListener('click', celebrate);
+
+  replayBtn.addEventListener('click', function(){
+    card.classList.remove('happy');
+    noBtn.classList.remove('runaway');
+    noBtn.style.left = '';
+    noBtn.style.top = '';
+    noBtn.textContent = 'No, Still Mad 😤';
+    noBtnMoved = false;
+  });
+
+  function burstFX(){
+    const shapes = ['💖','💕','🎉','✨','💗','🎊','💞'];
+    const colors = ['#ff8fb3', '#6fdbb0', '#ffd6e8', '#ffe08a', '#8fd6ff'];
+    const count = 60;
+
+    for(let i = 0; i < count; i++){
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'fx-piece';
+        const isEmoji = Math.random() > 0.4;
+        const left = Math.random() * 100;
+        const duration = 2.5 + Math.random() * 2;
+        const rot = (Math.random() * 720 - 360) + 'deg';
+        el.style.left = left + 'vw';
+        el.style.setProperty('--rot', rot);
+        el.style.animationDuration = duration + 's';
+
+        if(isEmoji){
+          el.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+          el.style.fontSize = (14 + Math.random() * 16) + 'px';
+        } else {
+          el.style.width = '8px';
+          el.style.height = '14px';
+          el.style.background = colors[Math.floor(Math.random() * colors.length)];
+          el.style.borderRadius = '2px';
+        }
+
+        fxLayer.appendChild(el);
+        setTimeout(() => el.remove(), duration * 1000 + 200);
+      }, i * 30);
+    }
+  }
+</script>
+
+</body>
+</html>
